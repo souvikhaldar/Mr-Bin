@@ -16,7 +16,7 @@ import (
 )
 
 type DistanceStruct struct {
-	distance float64
+	Distance float64
 }
 
 var (
@@ -48,8 +48,8 @@ func addPercentage(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "unmarshalling failed"})
 		return
 	}
-	fmt.Println("The recieved distance is ", dist.distance)
-	percentvalue := (dist.distance / height) * 100
+	fmt.Println("The recieved distance is ", dist.Distance)
+	percentvalue := (dist.Distance / height) * 100
 	if _, err := db.Exec("CREATE TABLE IF NOT EXISTS percentage (id bigserial,percent int)"); err != nil {
 		fmt.Println("Error in creating percentage table", err)
 		c.JSON(500, gin.H{"error": "table creation failed"})
