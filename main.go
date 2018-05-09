@@ -55,7 +55,7 @@ func addPercentage(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "table creation failed"})
 		return
 	}
-	if _, err := db.Exec("INSERT INTO percentage(id,percent) VALUES (DEFAULT,$1", percentvalue); err != nil {
+	if _, err := db.Exec("INSERT INTO percentage(id,percent) VALUES (DEFAULT,$1)", percentvalue); err != nil {
 		fmt.Println("Error in inserting percentage table", err)
 		c.JSON(500, gin.H{"error": "table insertion failed"})
 		return
