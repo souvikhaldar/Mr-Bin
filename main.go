@@ -127,7 +127,7 @@ func main() {
 
 	router.GET("/repeat", repeatFunc)
 	router.GET("/db", dbFunc)
-	router.PUT("/put", addPercentage)
+	router.POST("/post", addPercentage)
 
 	router.Run(":" + port)
 }
