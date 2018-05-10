@@ -32,7 +32,8 @@ func repeatFunc(c *gin.Context) {
 }
 func getPercentage(c *gin.Context) {
 	fmt.Println("--Running in getPercentage---")
-	cmd := exec.Command("/Library/Frameworks/Python.framework/Versions/3.6/bin/python3", "/Users/souvikhaldar/Development/go/src/github.com/heroku/go-getting-started/mrbin.py")
+	// in Mac the path to py3 is /Library/Frameworks/Python.framework/Versions/3.6/bin/python3
+	cmd := exec.Command("/usr/bin/python3", "/Users/souvikhaldar/Development/go/src/github.com/heroku/go-getting-started/mrbin.py")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println("Error in Output", err.Error())
