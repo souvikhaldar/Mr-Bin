@@ -3,12 +3,11 @@ package main
 import (
 	"bytes"
 	"database/sql"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -31,38 +30,21 @@ func repeatFunc(c *gin.Context) {
 	}
 	c.String(http.StatusOK, buffer.String())
 }
+func getPercentage(c *gin.Context) {
+	fmt.Println("--Running in getPercentage---")
+	cmd := exec.Command("/Library/Frameworks/Python.framework/Versions/3.6/bin/python3", "/Users/souvikhaldar/Development/go/src/github.com/heroku/go-getting-started/mrbin.py")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error in Output", err.Error())
+		c.JSON(200, gin.H{"Error": string(err.Error())})
+		return
+	}
+	fmt.Println("The output of the script is", string(out))
+	fmt.Printf("The type is %T", out)
+	c.JSON(200, gin.H{"Distance": string(out)})
+}
 
 // this function is for putting the data from arduino to the server
-func addPercentage(c *gin.Context) {
-	height := 45.0
-	data, er := ioutil.ReadAll(c.Request.Body)
-	if er != nil {
-		fmt.Println("Error in reading from request body", er)
-		c.JSON(500, gin.H{"Error": "Reading"})
-		return
-	}
-	var dist DistanceStruct
-	oops := json.Unmarshal(data, &dist)
-	if oops != nil {
-		fmt.Println("Error in unmarshalling", oops)
-		c.JSON(500, gin.H{"error": "unmarshalling failed"})
-		return
-	}
-	fmt.Println("The recieved distance is ", dist.Distance)
-	percentvalue := (dist.Distance / height) * 100
-	if _, err := db.Exec("CREATE TABLE IF NOT EXISTS percentage (id bigserial,percent int)"); err != nil {
-		fmt.Println("Error in creating percentage table", err)
-		c.JSON(500, gin.H{"error": "table creation failed"})
-		return
-	}
-	if _, err := db.Exec("INSERT INTO percentage(percent) VALUES ($1)", int(percentvalue)); err != nil {
-		fmt.Println("Error in inserting percentage table", err)
-		c.JSON(500, gin.H{"error": "table insertion failed"})
-		return
-	}
-	c.JSON(200, gin.H{"status": "insert success"})
-	return
-}
 
 func dbFunc(c *gin.Context) {
 	if _, err := db.Exec("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)"); err != nil {
@@ -127,7 +109,7 @@ func main() {
 
 	router.GET("/repeat", repeatFunc)
 	router.GET("/db", dbFunc)
-	router.POST("/post", addPercentage)
+	router.GET("/getPercent", getPercentage)
 
 	router.Run(":" + port)
 }

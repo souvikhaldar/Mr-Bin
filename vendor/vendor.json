@@ -60,6 +60,12 @@
 			"revision": "7fcbc72f853b92b5720db4a6b8482be612daef24"
 		},
 		{
+			"checksumSHA1": "Co7kpGaqJmbywR2BMinU4nP15Ck=",
+			"path": "github.com/mikepb/go-serial",
+			"revision": "3db078dbcc1c04e919dfb1d9c39ae42d15b6129d",
+			"revisionTime": "2015-05-01T14:42:18Z"
+		},
+		{
 			"checksumSHA1": "hKZGpbFuCrkE4s1vxubKK1aFlfI=",
 			"path": "golang.org/x/net/context",
 			"revision": "d9558e5c97f85372afee28cf2b6059d7d3818919"
