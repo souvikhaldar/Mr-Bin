@@ -53,14 +53,14 @@ func addPercentage(c *gin.Context) {
 
 }
 func getPercentage(c *gin.Context) {
-	var percent int64
+	var percent int
 	row := db.QueryRow("select percent from percentage order by id desc limit 1")
 	errr := row.Scan(&percent)
 	if errr == sql.ErrNoRows {
 		fmt.Println("No rows were returned!", errr)
 		c.JSON(500, gin.H{"Error": "Failed to read"})
 		return
-	} else if errr == nil {
+	} else if errr != nil {
 		fmt.Println("Error in selecting from db", errr)
 		c.JSON(500, gin.H{"Error": "Failed to read"})
 		return
