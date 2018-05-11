@@ -10,7 +10,8 @@ while True:
         c= re.findall('\d+', b )
         d= int(c[1])
         print("The raw data sent by Arduino is ",b)
-        percent = (d/heightOfBin)*100
+        x = (d/heightOfBin)*100
+        percent = int(x)
         print("The percent is",percent)
         print("The distance measured by arduino is",c[1])
     except Exception as e:
@@ -23,9 +24,9 @@ while True:
     #    print("strange error")
     #    percent = 47
     try:
-        url = 'https:/lit-sea-89877.herokuapp.com/addPercent'
+        url = 'https://lit-sea-89877.herokuapp.com/addPercent'
         d = requests.post(url,data= str(percent))
         print(d)
-    except:
-        print("Connection issue")
+    except Exception as c:
+        print("Connection issue is ",c)
     sleep(10)

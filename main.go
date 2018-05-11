@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -53,7 +52,26 @@ func addPercentage(c *gin.Context) {
 	return
 
 }
+func getPercentage(c *gin.Context) {
+	var percent string
+	row := db.QueryRow("select percent from percentage order by id desc limit 1")
+	switch er := row.Scan(&percent); er {
+	case sql.ErrNoRows:
+		fmt.Println("No rows were returned!")
+		c.JSON(500, gin.H{"Error": "Failed to read"})
+		return
+	case nil:
+		fmt.Println("Error in selecting from db", er)
+		c.JSON(500, gin.H{"Error": "Failed to read"})
+		return
+	default:
+		fmt.Println("The percentage value is ", percent)
+		c.JSON(200, gin.H{"Percentage": percent})
+	}
 
+}
+
+/*
 // For getting realtime distance value
 func getPercentage(c *gin.Context) {
 	fmt.Println("--Running in getPercentage---")
@@ -70,6 +88,7 @@ func getPercentage(c *gin.Context) {
 	fmt.Printf("The type is %T", out)
 	c.JSON(200, gin.H{"Distance": string(out)})
 }
+*/
 
 // this function is for putting the data from arduino to the server
 
