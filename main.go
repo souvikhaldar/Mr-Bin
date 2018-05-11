@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -30,14 +31,39 @@ func repeatFunc(c *gin.Context) {
 	}
 	c.String(http.StatusOK, buffer.String())
 }
+
+func addPercentage(c *gin.Context) {
+	body, eror := ioutil.ReadAll(c.Request.Body)
+	if eror != nil {
+		fmt.Println("Error in reading from request", eror)
+		c.JSON(500, gin.H{"Error": "Failed to read"})
+		return
+	}
+	fmt.Printf("The recieved request is of type %T", body)
+	fmt.Println("The recieved request is ", string(body))
+
+	// insert into db
+	if _, err := db.Exec("INSERT INTO percentage VALUES ($1)", string(body)); err != nil {
+		fmt.Println("Error in inserting into db", err)
+		c.JSON(500, gin.H{"Error": "Failed to insert"})
+		return
+	}
+
+	c.JSON(200, gin.H{"Push": "Success"})
+	return
+
+}
+
+// For getting realtime distance value
 func getPercentage(c *gin.Context) {
 	fmt.Println("--Running in getPercentage---")
 	// in Mac the path to py3 is /Library/Frameworks/Python.framework/Versions/3.6/bin/python3
-	cmd := exec.Command("/usr/bin/python3", "/Users/souvikhaldar/Development/go/src/github.com/heroku/go-getting-started/mrbin.py")
+	// in linux /usr/bin/python3
+	cmd := exec.Command("/Library/Frameworks/Python.framework/Versions/3.6/bin/python3", "/Users/souvikhaldar/Development/go/src/github.com/heroku/go-getting-started/mrbin.py")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println("Error in Output", err.Error())
-		c.JSON(200, gin.H{"Error": string(err.Error())})
+		c.JSON(500, gin.H{"Error": string(err.Error())})
 		return
 	}
 	fmt.Println("The output of the script is", string(out))
@@ -111,6 +137,7 @@ func main() {
 	router.GET("/repeat", repeatFunc)
 	router.GET("/db", dbFunc)
 	router.GET("/getPercent", getPercentage)
+	router.POST("/addPercent", addPercentage)
 
 	router.Run(":" + port)
 }
