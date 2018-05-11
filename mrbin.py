@@ -23,7 +23,7 @@ while True:
     #    print("strange error")
     #    percent = 47
     try:
-        url = 'http://localhost:5000/addPercent'
+        url = 'https:/lit-sea-89877.herokuapp.com/addPercent'
         d = requests.post(url,data= str(percent))
         print(d)
     except:

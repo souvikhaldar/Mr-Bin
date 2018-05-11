@@ -43,7 +43,7 @@ func addPercentage(c *gin.Context) {
 	fmt.Println("The recieved request is ", string(body))
 
 	// insert into db
-	if _, err := db.Exec("INSERT INTO percentage VALUES ($1)", string(body)); err != nil {
+	if _, err := db.Exec("INSERT INTO percentage(id,percent) VALUES (DEFAULT,$1)", string(body)); err != nil {
 		fmt.Println("Error in inserting into db", err)
 		c.JSON(500, gin.H{"Error": "Failed to insert"})
 		return
