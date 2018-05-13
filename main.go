@@ -173,8 +173,10 @@ func main() {
 	if err != nil {
 		fmt.Println("Some issue is getting value from db", err)
 	}
+
 	router.GET("/rts.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "rts.html", gin.H{"percent": percent})
+		fmt.Println("Final value of percent is", percent)
+		c.HTML(http.StatusOK, "rts.html", gin.H{"percent": 34})
 	})
 	router.GET("/aboutus.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "aboutus.html", nil)
