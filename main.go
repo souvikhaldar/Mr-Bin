@@ -70,20 +70,20 @@ func getPercentage(c *gin.Context) {
 	c.JSON(200, gin.H{"Percentage": percent})
 	return
 }
-func getPercentvalue() (string, error) {
+func getPercentvalue() (int64, error) {
 	fmt.Println("---Running in getPercentvalue---")
-	var percent int
+	var percent int64
 	row := db.QueryRow("select percent from percentage order by id desc limit 1")
 	errr := row.Scan(&percent)
 	if errr == sql.ErrNoRows {
 		fmt.Println("No rows were returned!", errr)
-		return "", errr
+		return 0, errr
 	} else if errr != nil {
 		fmt.Println("Error in selecting from db", errr)
-		return "", errr
+		return 0, errr
 	}
 	fmt.Println("The percentage value is ", percent)
-	return string(percent), nil
+	return percent, nil
 }
 
 /*
@@ -168,15 +168,14 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
-	var percent = string(53)
-	percent, err = getPercentvalue()
-	if err != nil {
-		fmt.Println("Some issue is getting value from db", err)
-	}
 
 	router.GET("/rts.html", func(c *gin.Context) {
+		percent, err := getPercentvalue()
+		if err != nil {
+			fmt.Println("Some issue is getting value from db", err)
+		}
 		fmt.Println("Final value of percent is", percent)
-		c.HTML(http.StatusOK, "rts.html", gin.H{"percent": 34})
+		c.HTML(http.StatusOK, "rts.html", gin.H{"percent": percent})
 	})
 	router.GET("/aboutus.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "aboutus.html", nil)
