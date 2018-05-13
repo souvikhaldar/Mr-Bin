@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mr. Bin</title>
+<meta charset="UTF-8">
+<meta name="description" content="Smart Bin Content">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+
+</head>
+<body>
+<div class="container">
+<header>
+<div id="banner">
+<div id="banner-left">Mr. BIN SMART WASTE MANAGEMENT SYSTEM</div>
+</div>
+<nav class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="aboutus.html">About Us</a></li>
+<li><a href="rts.html">Real Time Status</a></li>
+<li><a href="route.html">Optimized Route</a></li>
+</ul>
+</nav>
+</header>
+<div id="main">
+<div class="content">
+<!-- Slide Show -->
+<section>
+  <img class="mySlides" src="/static/images/smartbin1.png"
+  style="width:100%">
+  <img class="mySlides" src="/static/images/smartbin2.png"
+  style="width:100%">
+  <img class="mySlides" src="/static/images/smartbin3.png"
+  style="width:100%">
+</section>
+<script>
+// Automatic Slideshow - change image every 3 seconds
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 3000);
+}
+</script>
+<p class="content1">
+  <b>Smart Waste Management System</b> is an idea where we can control lots of problem like dirtiness, pollution and disease. The waste management has to be done instantly else it leads to irregular management which will have adverse effect on nature. The smart waste management is compatible mainly with the concept of smart cities .
+  </p>
+  <p class="content2">
+  The <b>goal</b> of this project is to get a <b>healthy and clean environment</b>.
+  </p>
+  <p class="content3">
+  The domain in which we are making are as follows:
+  </p>
+  <p class="content4">
+  <ol>
+  <li><marquee direction="up" behavior="alternate" style="height:60px">Internet of Things</marquee></li>
+  <li><marquee direction="up" behavior="alternate" style="height:60px">Cloud Computing</marquee></li>
+  <li><marquee direction="up" behavior="alternate" style="height:60px">Web-app Development</marquee></li>
+  </ol>
+  </p>
+  <p class="content5">
+  The biggest advantage of this project is that it promotes a healthy environment. The sensors used in smart bins are used to identify status of waste bins if it is empty or filled so as to customize the waste collection schedule accordingly and also save the cost. By implementing this system resource optimization, cost reduction, effective uses of smart dustbins can be done, with the help of <b>Best First Search</b> algorithm we can find the <b>best route</b> for garbage collection.
+
+  </p>
+</div>
+<div class="side">
+<div id="head-tab"></div>
+Copyright 2018 by mr-bin.ga. All Rights Reserved.
+</div>
+</div>
+</div>
+</body>
+</html>

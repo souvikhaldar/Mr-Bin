@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
 	_ "github.com/lib/pq"
 )
 
@@ -68,6 +69,20 @@ func getPercentage(c *gin.Context) {
 	fmt.Println("The percentage value is ", percent)
 	c.JSON(200, gin.H{"Percentage": percent})
 	return
+}
+func getPercentvalue() string {
+	var percent int
+	row := db.QueryRow("select percent from percentage order by id desc limit 1")
+	errr := row.Scan(&percent)
+	if errr == sql.ErrNoRows {
+		fmt.Println("No rows were returned!", errr)
+		return ""
+	} else if errr != nil {
+		fmt.Println("Error in selecting from db", errr)
+		return ""
+	}
+	fmt.Println("The percentage value is ", percent)
+	return string(percent)
 }
 
 /*
@@ -145,11 +160,22 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.LoadHTMLGlob("templates/*.html")
 	router.Static("/static", "static")
+	//router.LoadHTMLFiles("templates/aboutus.html")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
+	percent := getPercentvalue()
+	router.GET("/rts.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "rts.html", gin.H{"percent": percent})
+	})
+	router.GET("/aboutus.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "aboutus.html", nil)
+	})
+	router.GET("/route.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "route.html", nil)
 	})
 
 	router.GET("/repeat", repeatFunc)

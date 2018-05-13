@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Smart Bin Content">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+<style>
+.trash1{
+	border:1px solid grey;
+	margin:5px;
+	padding:5px;
+	width:420px;
+	height:200px;
+	float:left;
+}
+.trash2{
+	border:1px solid grey;
+	margin:5px;
+	padding:5px;
+	width:420px;
+	height:200px;
+	float:left;
+}
+.bin1{
+	padding:5px;
+	float:left;
+	width:200px;
+	height:170px;
+}
+.content{
+	padding:5px;
+	float:right;
+	width:200px;
+	height:140px;
+	float:left;
+}
+.content1{
+	padding:5px;
+	float:right;
+	width:200px;
+	height:140px;
+	float:right;
+}
+.center{
+    width:886px;
+	float:left;
+	padding:5px;
+	display:block;
+	margin-left:200px;
+	margin-right:200px;
+	border:1px solid grey;
+}
+#banner{
+	background-size:100% auto;
+	width:100%;
+	height:150px;
+}
+h1{
+	color:#fff;
+	padding:30px;
+	font-size:30px;
+	font-weight:bold;
+	text-align:center;
+}
+header{
+	width:886px;
+	background-color:#4e94ab;
+}
+</style>
+</head>
+<body>
+<div class="center">
+<header>
+<div id="banner">
+<div id="banner-left">Mr. BIN SMART WASTE MANAGEMENT SYSTEM</div>
+</div>
+<nav class="menu">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="aboutus.html">About Us</a></li>
+<li><a href="rts.html">Real Time Status</a></li>
+<li><a href="route.html">Optimized Route</a></li>
+</ul>
+</nav>
+</header>
+<div class="map">
+<img src="/static/images/map.png" style="width:882px;height:500px;">
+</div>
+<div class="bin">
+
+<div class="trash1">
+<img class="bin1" src="/static/images/smartbin4.png">
+
+<div class="content">
+	<p>Bin id: 211346</p><br>
+	%age of waste filled:<input type="text" name="waste" value="{{ .percent }}" readonly>
+	<!--
+<p>Bin id: 211345</p><br>
+<p id="demo"></p>
+<script>
+var request = new XMLHttpRequest();
+
+request.open('GET', 'https://lit-sea-89877.herokuapp.com/getPercent', true);
+request.onload = function () {
+
+  // Begin accessing JSON data here
+  var data = JSON.parse(this.response);
+
+  if (request.status >= 200 && request.status < 400) {
+    document.getElementById("demo").innerHTML = data.Percentage;
+  }
+}
+
+request.send();
+</script>
+-->
+</div>
+</div>
+<div class="trash2">
+<img class="bin1" src="/static/images/smartbin4.png">
+<div class="content1">
+<p>Bin id: 211346</p><br>
+%age of waste filled:<input type="text" name="waste" value="65" readonly>
+</div>
+</div>
+<div class="trash1">
+<img class="bin1" src="/static/images/smartbin4.png">
+<div class="content">
+<p>Bin id: 211347</p><br>
+%age of waste filled:<input type="text" name="waste" value="76" readonly>
+</div>
+</div>
+<div class="trash2">
+<img class="bin1" src="/static/images/smartbin4.png">
+<div class="content1">
+<p>Bin id: 211348</p><br>
+%age of waste filled:<input type="text" name="waste" value="30" readonly>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
