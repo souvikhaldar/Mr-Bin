@@ -93,7 +93,12 @@ header{
 <img class="bin1" src="static/images/smartbin4.png">
 
 <div class="content">
-	<p>Bin id: 211346</p><br>
+	<p>Bin id: Smart-Bin</p><br>
+	<script>
+	if({{.percent}}<15){
+		alert("The smartbin is almost full;");
+	}
+	</script>
 	%age of waste filled:<input type="text" name="waste" value="{{ .percent }}" readonly>
 	<!--
 <p>Bin id: 211345</p><br>

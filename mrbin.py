@@ -7,13 +7,13 @@ while True:
         arduino = serial.Serial('/dev/cu.usbmodem1421',9600)
         a = arduino.readline()
         b = a.decode()
-        c= re.findall('\d+', b )
-        d= int(c[1])
+        #c= re.findall('\d+', b )
+        #d= int(c[1])
         print("The raw data sent by Arduino is ",b)
-        x = (d/heightOfBin)*100
+        x = (float(b)/heightOfBin)*100
         percent = int(x)
         print("The percent is",percent)
-        print("The distance measured by arduino is",c[1])
+        #print("The distance measured by arduino is",c[1])
     except Exception as e:
         print("Error is", e)
         percent = 46
