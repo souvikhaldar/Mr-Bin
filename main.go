@@ -168,7 +168,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
-	var percent = string(47)
+	var percent = string(53)
 	percent, err = getPercentvalue()
 	if err != nil {
 		fmt.Println("Some issue is getting value from db", err)
